@@ -34,7 +34,7 @@ export const MainPage = () => {
 								maxQuantity: 10,
 							}}
 						>
-							{({ reset, increaseBy, quantity }) => (
+							{({ reset, increaseBy }) => (
 								<>
 									<ProductImg className="custom-image" />
 									<ProductTitle className="text-white" title={product.title} />
