@@ -50,22 +50,6 @@ export const MainPage = () => {
 					);
 				})}
 			</div>
-
-			{/*<div className="shopping-cart">
-				{Object.entries(shopCart).map(([key, item]) => (
-					<ProductCard
-						key={key}
-						className="bg-dark"
-						product={item}
-						style={{ width: "100px" }}
-						value={item.quantity}
-						onChange={(evt) => onProductChange(evt)}
-					>
-						<ProductImg className="custom-image" img={item.img} />
-						<ProductButtons className="custom-buttons" />
-					</ProductCard>
-				))}
-				</div>*/}
 		</div>
 	);
 };

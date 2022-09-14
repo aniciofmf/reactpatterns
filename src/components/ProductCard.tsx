@@ -4,11 +4,6 @@ import { useProduct } from "../hooks/useProduct";
 import { productContext } from "../context/Context";
 import { propsProduct } from "../interfaces/IProduct";
 
-/* import { ProductTitle } from "./ProductTitle";
-import { ProductImg } from "./ProductImg";
-import { ProductButtons } from "./ProductButtons";
- */
-
 const { Provider } = productContext;
 
 export const ProductCard = ({ children, product, className, style, onChange, value, initialValues = {} }: propsProduct) => {
@@ -29,7 +24,3 @@ export const ProductCard = ({ children, product, className, style, onChange, val
 		</Provider>
 	);
 };
-
-/*ProductCard.Title = ProductTitle;
-ProductCard.Img = ProductImg;
-ProductCard.Buttons = ProductButtons;*/
