@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
 import { IOnChange } from "./IOnChange";
 
 export interface propsProduct {
 	product: IProduct;
-	children: /*ReactElement | ReactElement[] |*/ () => JSX.Element;
+	/*children: ReactElement | ReactElement[] |*/
+	children: (args: IProductCardHandlers) => JSX.Element;
 	className?: string | string[];
 	style?: React.CSSProperties;
 	onChange?: (args: IOnChange) => void;
@@ -29,4 +29,13 @@ export interface IProductButtons {
 export interface IInitialValues {
 	quantity?: number;
 	maxQuantity?: number;
+}
+
+export interface IProductCardHandlers {
+	quantity: number;
+	isMaxReached: boolean;
+	maxQty?: number;
+	product: IProduct;
+	increaseBy: (value: number) => void;
+	reset: () => void;
 }

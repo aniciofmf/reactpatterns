@@ -9,7 +9,7 @@ import { ProductButtons } from "../components/ProductButtons";
 import "../styles/custom.css";
 
 export const MainPage = () => {
-	const { shopCart, onProductChange } = useCart();
+	const { onProductChange } = useCart();
 
 	return (
 		<div>
@@ -23,12 +23,6 @@ export const MainPage = () => {
 				}}
 			>
 				{products.map((product) => {
-					let qtyValue = 0;
-
-					if (shopCart[product?.id] !== undefined) {
-						qtyValue = shopCart[product?.id].quantity;
-					}
-
 					return (
 						<ProductCard
 							key={product.id}
@@ -40,11 +34,16 @@ export const MainPage = () => {
 								maxQuantity: 10,
 							}}
 						>
-							{() => (
+							{({ reset, increaseBy, quantity }) => (
 								<>
 									<ProductImg className="custom-image" />
 									<ProductTitle className="text-white" title={product.title} />
 									<ProductButtons className="custom-buttons" />
+
+									<button onClick={reset}>Reset</button>
+
+									<button onClick={() => increaseBy(+2)}>+2</button>
+									<button onClick={() => increaseBy(-2)}>-2</button>
 								</>
 							)}
 						</ProductCard>

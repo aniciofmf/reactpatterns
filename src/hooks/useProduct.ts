@@ -5,6 +5,10 @@ export const useProduct = ({ onChange, product, value = 0, initialValues }: IUse
 	const [quantity, setQuantity] = useState<number>(initialValues.quantity || value);
 	const isMounted = useRef(false);
 
+	const reset = () => {
+		setQuantity(initialValues?.quantity || value);
+	};
+
 	const increaseBy = (value: number) => {
 		let newQty = Math.max(quantity + value, 0);
 		const maxQty = initialValues.maxQuantity || Infinity;
@@ -33,6 +37,8 @@ export const useProduct = ({ onChange, product, value = 0, initialValues }: IUse
 	return {
 		quantity,
 		increaseBy,
+		isMaxReached: !!initialValues?.quantity && initialValues.quantity === quantity,
 		maxQty: initialValues.maxQuantity,
+		reset,
 	};
 };
