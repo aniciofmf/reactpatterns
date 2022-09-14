@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { IUseProductArgs } from "../interfaces/IUseProduct";
 
-export const useProduct = ({ onChange, product, value = 0 }: IUseProductArgs) => {
-	const [quantity, setQuantity] = useState(value);
-	const changeRef = useRef(!!onChange);
+export const useProduct = ({ onChange, product, value = 0, initialValues }: IUseProductArgs) => {
+	const [quantity, setQuantity] = useState<number>(initialValues.quantity || value);
+	const isMounted = useRef(false);
 
 	const increaseBy = (value: number) => {
-		const newQty = Math.max(quantity + value, 0);
+		let newQty = Math.max(quantity + value, 0);
+		const maxQty = initialValues.maxQuantity || Infinity;
 
-		if (changeRef.current && onChange) {
-			return onChange({ quantity: value, product });
+		if (maxQty !== Infinity && newQty > maxQty) {
+			newQty = Math.min(newQty, maxQty);
 		}
 
 		setQuantity(newQty);
@@ -20,11 +21,18 @@ export const useProduct = ({ onChange, product, value = 0 }: IUseProductArgs) =>
 	};
 
 	useEffect(() => {
-		setQuantity(value);
+		if (!isMounted.current) return;
+
+		value && setQuantity(value);
 	}, [value]);
+
+	useEffect(() => {
+		isMounted.current = true;
+	}, []);
 
 	return {
 		quantity,
 		increaseBy,
+		maxQty: initialValues.maxQuantity,
 	};
 };

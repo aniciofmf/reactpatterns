@@ -1,10 +1,18 @@
 import styles from "../styles/styles.module.css";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 
 import { productContext } from "../context/Context";
 
 export const ProductButtons = ({ className = "" }: { className?: string }) => {
-	const { quantity, increaseBy } = useContext(productContext);
+	const { quantity, increaseBy, maxQty = 0 } = useContext(productContext);
+	const isMaxQtyReached = useCallback(() => {
+		if (quantity == maxQty) {
+			return true;
+		} else {
+			return false;
+		}
+	}, [quantity, maxQty]);
+
 	return (
 		<div className={`${styles.buttonsContainer} ${className}`}>
 			<button className={styles.buttonMinus} onClick={() => increaseBy(-1)}>
@@ -12,7 +20,7 @@ export const ProductButtons = ({ className = "" }: { className?: string }) => {
 				-{" "}
 			</button>
 			<div className={styles.countLabel}> {quantity} </div>
-			<button className={styles.buttonAdd} onClick={() => increaseBy(+1)}>
+			<button className={`${styles.buttonAdd} ${isMaxQtyReached() && styles.disabled}`} onClick={() => increaseBy(+1)}>
 				{" "}
 				+{" "}
 			</button>

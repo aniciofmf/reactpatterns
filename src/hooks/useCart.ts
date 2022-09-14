@@ -17,7 +17,7 @@ export const useCart = () => {
 				};
 			}
 
-			const { [product.id]: remove, ...rest } = oldCart;
+			const { [product.id]: deleted, ...rest } = oldCart;
 
 			return {
 				...rest,

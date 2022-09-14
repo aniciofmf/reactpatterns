@@ -30,16 +30,29 @@ export const MainPage = () => {
 					}
 
 					return (
-						<ProductCard value={qtyValue} key={product.id} className="bg-dark" product={product} onChange={(evt) => onProductChange(evt)}>
-							<ProductImg className="custom-image" />
-							<ProductTitle className="text-white" title={product.title} />
-							<ProductButtons className="custom-buttons" />
+						<ProductCard
+							key={product.id}
+							className="bg-dark"
+							product={product}
+							onChange={(evt) => onProductChange(evt)}
+							initialValues={{
+								quantity: 4,
+								maxQuantity: 10,
+							}}
+						>
+							{() => (
+								<>
+									<ProductImg className="custom-image" />
+									<ProductTitle className="text-white" title={product.title} />
+									<ProductButtons className="custom-buttons" />
+								</>
+							)}
 						</ProductCard>
 					);
 				})}
 			</div>
 
-			<div className="shopping-cart">
+			{/*<div className="shopping-cart">
 				{Object.entries(shopCart).map(([key, item]) => (
 					<ProductCard
 						key={key}
@@ -53,7 +66,7 @@ export const MainPage = () => {
 						<ProductButtons className="custom-buttons" />
 					</ProductCard>
 				))}
-			</div>
+				</div>*/}
 		</div>
 	);
 };

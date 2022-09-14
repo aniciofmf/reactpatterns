@@ -11,13 +11,13 @@ import { ProductButtons } from "./ProductButtons";
 
 const { Provider } = productContext;
 
-export const ProductCard = ({ children, product, className, style, onChange, value = 0 }: propsProduct) => {
-	const { quantity, increaseBy } = useProduct({ onChange, product, value });
+export const ProductCard = ({ children, product, className, style, onChange, value, initialValues = {} }: propsProduct) => {
+	const { quantity, increaseBy, maxQty } = useProduct({ onChange, product, value, initialValues });
 
 	return (
-		<Provider value={{ quantity, increaseBy, product }}>
+		<Provider value={{ quantity, increaseBy, product, maxQty }}>
 			<div className={`${styles.productCard} ${className}`} style={style}>
-				{children}
+				{children()}
 			</div>
 		</Provider>
 	);
